@@ -7,17 +7,17 @@ export default function ListaFilmova({title, data}){
     let imeFilma = "Oppenheimer";
     const navigacija = useNavigation();
     return(
-        <View stlye={stilovi.view_nadolazeci}>
+        <View style={stilovi.view_nadolazeci}>
             <View style={stilovi.view_naslov}>
                 <Text style={{
                     color:"#FFFFFF",
-                    fontSize:20
+                    fontSize:15
                 }}>{title}
                 </Text>
                 <TouchableOpacity>
                     <Text style={{
                         color:"#eab308",
-                        fontSize: 20
+                        fontSize: 15
                     }}>
                     Pregledajte sve    
                     </Text>
@@ -46,7 +46,7 @@ export default function ListaFilmova({title, data}){
                                     />
                                     <Text style={{
                                         color: "#D4D4D4",
-                                        marginLeft:1
+                                        marginLeft:1,
                                     }}>
                                         {imeFilma.length > 10? imeFilma.slice(0,10)+ '...': imeFilma}
                                     </Text>
@@ -64,7 +64,7 @@ export default function ListaFilmova({title, data}){
 
 const stilovi = StyleSheet.create({
     view_nadolazeci: {
-        fontSize:20,
+        fontSize:14,
         marginBottom:8,
         marginTop:4
     },

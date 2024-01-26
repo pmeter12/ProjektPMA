@@ -45,13 +45,13 @@ const FilmKartica = ({item, handleClick})=>{
 
 const stilovi = StyleSheet.create({
     view:{
-        marginBottom:8,
+        marginBottom:2
         
         
     },
     tekst:{
         color:"#F9ECEC",
-        fontSize: 20,
+        fontSize: 16,
         marginBottom: 5,
         marginLeft:4,
         marginRight:4

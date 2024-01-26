@@ -14,15 +14,15 @@ export default function pocetniEkran(){
 
     return(
         <View style = {stilovi.cijeli_Ekran}>
-            <SafeAreaView style={stilovi.gornji_View}>
+            <View style={stilovi.gornji_View}>
                 <StatusBar style="light"/>
-                <View style={stilovi.gornji_View}>
+                <View style={stilovi.view_red}>
                 <Bars3Icon size="30" strokeWidth={2} color="blue"/>
                 <Text 
                     style = {{
                         color: "#F0C7C7",
                         fontFamily: "serif",
-                        fontSize:25
+                        fontSize:20
                 }}> 
                 Filmovi 
                 </Text>
@@ -30,7 +30,7 @@ export default function pocetniEkran(){
                     <MagnifyingGlassIcon size="30" strokeWidth={2} color="blue"/>                
                 </TouchableOpacity>
                 </View>
-            </SafeAreaView>
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{padingBottom:10}}
@@ -59,16 +59,18 @@ const stilovi = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: '#3C3838',
         flexDirection: 'row',
-        flex:1
-    
-
+        flex:1,
     },
-
-    logo: {
-        color: "F0C7C7",
-        fontFamily: "serif"
-
+    view_red:{
+        justifyContent: 'space-between',
+        backgroundColor: '#3C3838',
+        flexDirection: 'row',
+        flex:1,
+        marginVertical:20
+        
     }
+
+    
 })
 
 

@@ -22,12 +22,12 @@ export default function FilmZaslon(){
         >
             {/* Kreiranje buttona za povratak i poster filam*/}
             <View>
-                <SafeAreaView style={stilovi.safe_view}>
+                <View style={stilovi.safe_view}>
                     <TouchableOpacity style = {stilovi.touch} onPress={()=> navigacija.goBack()}>
                         <ChevronLeftIcon size="25" strokeWidth={2.5} color="white"/>
                     </TouchableOpacity>
                     
-                </SafeAreaView>
+                </View>
                 <View>
                     <Image
                         source={require('../assets/slike/Spider-Man-_Across_the_Spider-Verse_poster.png')}
@@ -76,7 +76,8 @@ const stilovi = StyleSheet.create({
         backgroundColor:"#3C3838",
         flex:1,
         flexDirection: 'row',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        marginVertical:30
         
     },
     touch:{
