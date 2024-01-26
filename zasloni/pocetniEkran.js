@@ -5,12 +5,14 @@ import { StatusBar } from 'expo-status-bar';
 import { Bars3Icon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import FilmoviTrending from '../komponente/filmoviTrending';
 import ListaFilmova from '../komponente/listaFilmova';
+import { useNavigation } from '@react-navigation/native';
 
 /*const ios = Platform.OS == 'ios';*/
 export default function pocetniEkran(){
     const [trending, setTrending] = useState([1,2,3]);
     const[nadolazeci, setNadolazece] = useState([1,2,3]);
     const[najbolji, setNajbolji] = useState([1,2,3]);
+    const navigacija = useNavigation();
 
     return(
         <View style = {stilovi.cijeli_Ekran}>
@@ -26,7 +28,7 @@ export default function pocetniEkran(){
                 }}> 
                 Filmovi 
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigacija.navigate('Pretraga')}>
                     <MagnifyingGlassIcon size="30" strokeWidth={2} color="blue"/>                
                 </TouchableOpacity>
                 </View>

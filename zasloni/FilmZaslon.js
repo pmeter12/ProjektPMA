@@ -11,6 +11,7 @@ export default function FilmZaslon(){
     const{params: item} = useRoute();
     const navigacija = useNavigation();
     const[glumci,setGlumci] = useState([1,2,3,4]);
+    
 
     useEffect(()=>{
         //Pozivanje api-ja za detalje filma
