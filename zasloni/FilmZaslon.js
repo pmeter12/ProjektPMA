@@ -94,8 +94,7 @@ export default function FilmZaslon(){
             </View>
 
             {/*O glumcima */}
-            <Glumci navigacija={navigacija} glumci={glumci}/>
-
+            {glumci.length >0 && <Glumci navigacija={navigacija} glumci={glumci}/>}
             
         </ScrollView>
     )

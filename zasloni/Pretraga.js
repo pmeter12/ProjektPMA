@@ -1,18 +1,40 @@
 import {View, Text, Dimensions, StyleSheet, TextInput, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Image} from 'react-native'
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import { XMarkIcon } from 'react-native-heroicons/outline';
 import { useNavigation } from '@react-navigation/native';
+import {debounce} from 'lodash'
+import { fetchPretragaFilm, slika_manja } from '../api/bazaFilmova';
 
 const{width,height} = Dimensions.get('window');
 
 export default function Pretraga(){
     const navigacija=useNavigation();
     const[rezultati,setRezultati] =useState([]);
+    const handlePretraga = vrijednost =>{
+       // console.log('vrijednost:',vrijednost);
+        if(vrijednost && vrijednost.length > 2){
+            fetchPretragaFilm({
+                query:vrijednost,
+                include_adult:'false',
+                language:'en-US',
+                page:'1'
+            }).then(data =>{
+                //console.log('filmovi:',data);
+                if(data && data.results) setRezultati(data.results);
+            })
+                
+            
+        }else{
+            setRezultati([]);
+        }
+    }
 
+    const handleTextDebounce = useCallback(debounce(handlePretraga, 400, []));
     return(
         <View style={stilovi.zaslon}>
             <View style={stilovi.view_pretraga}>
                 <TextInput
+                    onChangeText={handleTextDebounce}
                     placeholder='Pretraži film'
                     placeholderTextColor={"#CBC9C9"}
                     style={stilovi.mjesto_pretrage}
@@ -27,7 +49,7 @@ export default function Pretraga(){
 
             {/*Rezultati pretrage */}
             {
-                rezultati.lenght>0 ?(
+                rezultati.length>0 ?(
                     <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{paddingHorizontal:15}}
@@ -40,7 +62,7 @@ export default function Pretraga(){
                         return(
                             <TouchableWithoutFeedback
                                 key={index}
-                                onPress={()=> navigacija.push("Movie",item)}
+                                onPress={()=> navigacija.push("ZaslonFilm",item)}
                             >
                                 <View style={{
                                     marginTop:8,
@@ -48,11 +70,12 @@ export default function Pretraga(){
 
                                 }}>
                                     <Image style={stilovi.slika}
-                                        source={require('../assets/slike/oppenheimer.png')}
+                                        //source={require('../assets/slike/oppenheimer.png')}
+                                        source={{uri:slika_manja(item?.poster_path)}}
                                     >
                                     </Image>
                                     <Text style={{color:"#FFFFFF"}}>
-                                        Ime filma
+                                        {item?.title.length > 20? item?.title.slice(0,20)+'...':item?.title}
                                     </Text>
 
                                 </View>

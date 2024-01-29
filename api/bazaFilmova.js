@@ -6,10 +6,12 @@ const apiBaza = 'https://api.themoviedb.org/3';
 const trendingFilmoviEndPoint = `${apiBaza}/trending/movie/day?api_key=${ApiKey}&language=en-US`
 const nadolazeciFilmoviEndPoint=`${apiBaza}/movie/upcoming?api_key=${ApiKey}&language=en-US&page=1`
 const najboljiFilmoviEndPoint=`${apiBaza}/movie/top_rated?api_key=${ApiKey}&language=en-US&page=1`
+const filmPretragaEndpoint = `${apiBaza}/search/movie?api_key=${ApiKey}`
 
 //Endpoints detalji filmova
 const filmDetaljiEndpoint = id => `${apiBaza}/movie/${id}?api_key=${ApiKey}`
 const filmCreditsEndpoint = id => `${apiBaza}/movie/${id}/credits?api_key=${ApiKey}`
+
 
 const glumacDetaljiEndpoint = id => `${apiBaza}/person/${id}?api_key=${ApiKey}`
 
@@ -52,4 +54,8 @@ export const fetchFilmCredits = id =>{
 }
 export const fetchGlumacdetalji = id =>{
     return apiCall(glumacDetaljiEndpoint(id))
+}
+
+export const fetchPretragaFilm = params =>{
+    return apiCall(filmPretragaEndpoint, params);
 }
