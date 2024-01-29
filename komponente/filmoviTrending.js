@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback, Dimensions, Image } f
 import React from 'react';
 import Carousel from 'react-native-snap-carousel';
 import {useNavigation} from '@react-navigation/native';
-
+import { slika_najveca } from '../api/bazaFilmova';
 var {width,height} = Dimensions.get('window');
 
 export default function FilmoviTrending({data}){
@@ -27,10 +27,12 @@ export default function FilmoviTrending({data}){
     )
 }
 const FilmKartica = ({item, handleClick})=>{
+    /*console.log('poster: ', item.poster_path);*/
     return(
         <TouchableWithoutFeedback onPress = {() => handleClick (item)}>
             <Image
-                source={require('../assets/slike/Spider-Man-_Across_the_Spider-Verse_poster.png')}
+                /*source={require('../assets/slike/Spider-Man-_Across_the_Spider-Verse_poster.png')}*/
+                source={{uri:slika_najveca(item.poster_path)}}
                 style ={{
                     width: width * 0.5,
                     height: height * 0.3,

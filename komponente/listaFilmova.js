@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Dimensions, Image } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { slika_manja } from '../api/bazaFilmova';
 
 var {width,height} = Dimensions.get('window');
 export default function ListaFilmova({title, data}){
-    let imeFilma = "Oppenheimer";
+    //let imeFilma = "Oppenheimer";
     const navigacija = useNavigation();
     return(
         <View style={stilovi.view_nadolazeci}>
@@ -33,11 +34,11 @@ export default function ListaFilmova({title, data}){
                         return(
                             <TouchableWithoutFeedback
                                 key = {index}
-                                onPress={()=>navigacija.navigate("Movie",item)}
+                                onPress={()=>navigacija.navigate("ZaslonFilm",item)}
                             >
                                 <View style={stilovi.view_opis}>
                                     <Image
-                                        source={require('../assets/slike/oppenheimer.png')}
+                                        source={{uri:slika_manja(item.poster_path)}}
                                         style={{
                                             width: width * 0.30,
                                             height: height * 0.20,
@@ -48,7 +49,9 @@ export default function ListaFilmova({title, data}){
                                         color: "#D4D4D4",
                                         marginLeft:1,
                                     }}>
-                                        {imeFilma.length > 10? imeFilma.slice(0,10)+ '...': imeFilma}
+                                    {
+                                        item.title.length > 10 ? item.title.slice(0,10)+'...': item.title
+                                    }
                                     </Text>
                                 </View>
                                 

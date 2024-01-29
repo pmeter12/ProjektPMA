@@ -1,5 +1,6 @@
 import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Image} from 'react-native'
 import React from 'react'
+import { slika_manja } from '../api/bazaFilmova'
 
 export default function Glumci({glumci, navigacija}){
     let ime_glumca = 'Shameik Moore'
@@ -22,20 +23,20 @@ export default function Glumci({glumci, navigacija}){
                             >
                                 <Image
                                     style={stilovi.slika}
-                                    source={require('../assets/slike/ShameikMoore.png')}
-
+                                    //source={require('../assets/slike/ShameikMoore.png')}
+                                    source={{uri:slika_manja(osoba?.profile_path)}}
                                 />
                                 <Text style ={stilovi.glumac_tekst}
                                 >
                                     {
-                                        ime_lika.length>10 ? ime_lika.slice(0,10)+'...':ime_lika
+                                        osoba?.character.length>10 ? osoba?.character.slice(0,10)+'...':osoba?.character
                                     }
                                     
                                 </Text>
                                 <Text style ={stilovi.glumac_tekst}
                                 >
                                     {
-                                        ime_glumca.length>10 ? ime_glumca.slice(0,10)+'...':ime_glumca
+                                        osoba?.original_name.length>10 ? osoba?.original_name.slice(0,10)+'...':osoba?.original_name
                                     }
                                     
                                 </Text>

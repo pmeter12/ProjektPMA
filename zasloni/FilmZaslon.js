@@ -5,17 +5,33 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeftIcon} from 'react-native-heroicons/outline';
 import { useNavigation } from '@react-navigation/native';
 import Glumci from '../komponente/glumci';
+import { fetchFilmCredits, fetchFilmdetalji, slika_manja, slika_najveca } from '../api/bazaFilmova';
 
 var {width,height} = Dimensions.get('window');
 export default function FilmZaslon(){
     const{params: item} = useRoute();
     const navigacija = useNavigation();
-    const[glumci,setGlumci] = useState([1,2,3,4]);
-    
+    const[glumci,setGlumci] = useState([]);
+    const[film,setFilm] = useState({});
 
     useEffect(()=>{
         //Pozivanje api-ja za detalje filma
+        //console.log('id filma',item.id);
+         getFilmDetalji(item.id);
+         getFilmCredits(item.id);
     },[item])
+
+    const getFilmDetalji = async id =>{
+        const data = await fetchFilmdetalji(id);
+        //console.log(data)
+        if(data) setFilm(data);
+    }
+
+    const getFilmCredits = async id =>{
+        const data = await fetchFilmCredits(id);
+        if(data && data.cast) setGlumci(data.cast);
+    }
+
     return(
         <ScrollView
             contentContainerStyle={{paddingBottom:20}}
@@ -31,7 +47,8 @@ export default function FilmZaslon(){
                 </View>
                 <View>
                     <Image
-                        source={require('../assets/slike/Spider-Man-_Across_the_Spider-Verse_poster.png')}
+                        //source={require('../assets/slike/Spider-Man-_Across_the_Spider-Verse_poster.png')}
+                        source={{uri: slika_najveca(film?.poster_path)}}
                         style={{width, height:height * 0.5}}
                     />
                     
@@ -42,19 +59,35 @@ export default function FilmZaslon(){
             {/*Detalji o filmu */}
             <View style ={stilovi.detalji}>
                 <Text style={stilovi.naslov}> 
-                {"Spiderman"}
+                {
+                    film?.title
+                }
                 </Text>
-                <Text style={stilovi.opcenito}>
-                    Izašao * 2023 * 140 min
-                </Text>   
+                {
+                    film?.id?(
+                        <Text style={stilovi.opcenito}>
+                            {film?.status} * {film?.release_date?.split('-')[0]} * {film?.runtime} min
+                        </Text>
+                    ):null
+                }
                 <View style={stilovi.zanrovi}>
-                    <Text style={stilovi.opcenito}>
-                        Akcija * Komedija
-                    </Text>
+                    
+                {
+                    film?.genres?.map((genre,index)=>{
+                        return(
+                            <Text key={index}style={stilovi.opcenito}>
+                            {genre?.name} *
+                            </Text>
+                        )
+
+                    })
+                }
                 </View> 
                 {/* View o opisu filma */}
                 <Text style={stilovi.opis}>
-                Miles Morales catapults across the multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash on how to handle a new threat, Miles must redefine what it means to be a hero.
+                    {
+                        film?.overview
+                    }
                 </Text>
 
 
